@@ -22,24 +22,12 @@ The output of the command will be displayed in the Assistant panel.
 ## Compatibility
 
 Currently supports:
-- macOS
-- Linux
 
-Windows support is planned for future releases.
+- macOS (tested)
+- Linux (untested)
+
+Windows support is not currently planned.
 
 ## Installation
 
-### Option 1: Install from Extension Registry (once published)
-1. Open Zed
-2. Go to Settings > Extensions
-3. Search for "Shell Command"
-4. Click "Install"
-
-### Option 2: Install from Source
-1. Clone this repository
-2. Build using `cargo build --release`
-3. Install the extension in Zed by going to Settings > Extensions > Install From Path
-
-## Security Note
-
-This extension runs commands directly on your system. Be careful with what commands you run, especially if you're working with untrusted content.
+Install it the normal way that zed extensions are installed.
