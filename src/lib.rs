@@ -51,8 +51,8 @@ impl zed::Extension for ShellCommandExtension {
                 let stderr = String::from_utf8_lossy(&output.stderr).to_string();
 
                 // Format the command output
-                let mut result = format!("$ {}\n", command_str);
-                result.push_str("```\n");
+                let mut result = format!("/sh {}\n", command_str);
+                // result.push_str("```\n");
 
                 if output.status != Some(0) {
                     result.push_str(&format!(
@@ -76,12 +76,13 @@ impl zed::Extension for ShellCommandExtension {
                     result.push_str("(No output)");
                 }
 
-                result.push_str("```");
+                // result.push_str("```");
+                let label = format!("/sh {}", command_str);
 
                 Ok(SlashCommandOutput {
                     sections: vec![SlashCommandOutputSection {
-                        range: (0..result.len()).into(),
-                        label: format!("$ {}", command_str),
+                        range: (label.len()..result.len()).into(),
+                        label,
                     }],
                     text: result,
                 })
@@ -99,6 +100,10 @@ impl zed::Extension for ShellCommandExtension {
         if command.name == "sh" && args.len() <= 1 {
             let query = args.get(0).cloned().unwrap_or_default().to_lowercase();
             let completions = vec![
+                (
+                    "echo /file $(rg -l 'flarm')",
+                    "Search file contents with regexp via ripgrep",
+                ),
                 ("ls", "List directory contents"),
                 ("git status", "Show git working tree status"),
                 ("git log", "Show commit logs"),
