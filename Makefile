@@ -6,7 +6,7 @@ all: build
 # Build the WASM extension
 build:
 	@echo "Building Zed Shell Command Extension..."
-	cargo build --release --target wasm32-wasi
+	nix develop -c cargo build --release --target wasm32-wasip1
 	@echo "Extension built successfully!"
 	@echo ""
 	@echo "To install in Zed:"
@@ -17,7 +17,7 @@ build:
 
 # Clean build artifacts
 clean:
-	cargo clean
+	nix develop -c cargo clean
 	rm -rf target/
 
 # Enter the Nix development shell
@@ -26,15 +26,15 @@ dev-shell:
 
 # Run tests
 test:
-	cargo test
+	nix develop -c cargo test
 
 # Format code
 fmt:
-	cargo fmt
+	nix develop -c cargo fmt
 
 # Lint code
 lint:
-	cargo clippy -- -D warnings
+	nix develop -c cargo clippy -- -D warnings
 
 # Check if everything is ready
 check: fmt lint test build
@@ -42,4 +42,4 @@ check: fmt lint test build
 
 # Watch for changes and rebuild (requires cargo-watch)
 watch:
-	cargo watch -x "build --release --target wasm32-wasi"
+	nix develop -c cargo watch -x "build --release --target wasm32-wasip1"

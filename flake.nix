@@ -16,8 +16,8 @@
         };
 
         rustToolchain = pkgs.rust-bin.stable.latest.default.override {
-          extensions = [ "rust-src" ];
-          targets = [ "wasm32-wasi" ];
+          extensions = [ "rust-src" "rust-std" ];
+          targets = [ "wasm32-wasip1" ];
         };
       in
       {
@@ -45,12 +45,12 @@
           cargoLock.lockFile = ./Cargo.lock;
           
           buildPhase = ''
-            cargo build --release --target wasm32-wasi
+            cargo build --release --target wasm32-wasip1
           '';
 
           installPhase = ''
             mkdir -p $out
-            cp target/wasm32-wasi/release/shell_command.wasm $out/
+            cp target/wasm32-wasip1/release/shell_command.wasm $out/
             cp extension.toml $out/
           '';
         };
